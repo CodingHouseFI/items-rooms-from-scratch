@@ -1,6 +1,22 @@
 extends ./layout
 
+block css
+  link(href='css/style.css', rel='stylesheet')
+
 block content
   .container
-    h1= title
-    p whoa... it's #{title}
+    .row
+      .col-xs-12.text-center
+        h1= title
+    .row.roomRow
+      .col-xs-4
+        button.btn.btn-success#addRoom Add Room
+        ul.list-group#roomList
+        //- room list
+      .col-xs-8
+        //- items in room
+    .row
+      .col-xs-12
+        //- free items
+block js
+  script(src='js/main.js')
