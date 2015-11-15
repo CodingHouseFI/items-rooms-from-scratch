@@ -16,8 +16,18 @@ var itemSchema = Schema({
 
 itemSchema.methods.inRoom = function(cb) {
   Room.findOne({items: this._id}, function(err, room){
-    if(err) cb(err);
+    if(err) return cb(err);
     cb(null, room)
+  });
+};
+
+itemSchema.statics.findNotInRoom = function(cb) {
+  Room.find({}, function(err, rooms){
+    if(err) return cb(err);
+    var itemIds = rooms.reduce(function(itemIds, room){
+      return itemIds.concat(room.items)
+    }, []);
+    Item.find({_id: {$nin: itemIds}}, cb);
   });
 };
 

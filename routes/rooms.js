@@ -21,6 +21,13 @@ router.post('/', function(req, res) {
   });
 });
 
+router.get('/:roomId/items', function(req, res) {
+  Room.findById(req.params.roomId, function(err, room) {
+    if(err) return res.status(400).send(err);
+    res.send(room.items);
+  }).populate('items');
+});
+
 router.put('/:roomId/additem/:itemId', function(req, res) {
   Room.findById(req.params.roomId, function(err, room){
     if(err) return res.status(400).send(err);
