@@ -8,6 +8,7 @@ var Item;
 var itemSchema = Schema({
   name: { type: String, required: false },
   value: { type: Number, required: false },
+  image: { type: String },
   description: { type: String },
   createdAt: { type: Date, default: new Date() }
 });
