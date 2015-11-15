@@ -15,8 +15,18 @@ block content
         //- room list
       .col-xs-8
         //- items in room
-    .row
-      .col-xs-12
+    .row#itemList
+      .col-xs-6.item#sampleItem
+        .media
+          .media-left
+            a(href='#')
+              img.media-object.itemImage(src='', alt='')
+          .media-body
+            h4.media-heading.itemName
+            p Value: 
+              span.itemValue
+            p.itemDescription
+
         //- free items
 block js
   script(src='js/main.js')

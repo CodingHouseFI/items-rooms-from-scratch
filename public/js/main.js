@@ -4,6 +4,7 @@ $(document).ready(init);
 
 function init() {
   putRoomsInList();
+  putItemsInList();
   $('#addRoom').click(modalAddRoom);
 }
 
@@ -22,7 +23,7 @@ function modalAddRoom(){
       swal.showInputError("You need to write something!");
       return false;
     }
-    $.post('/rooms', {room:{name: inputValue}})
+    $.post('/rooms', {name: inputValue})
     .done(function(room){
       $('#roomList').append(roomListElement(room));
       swal("Nice!", "You added: " + inputValue, "success");
@@ -33,6 +34,18 @@ function modalAddRoom(){
   }); 
 }
 
+function putItemsInList() {
+  $.get('/items')
+  .done(function(items){
+    var $items = items.map(function(item){
+      return itemListElement(item);
+    });
+    $('#itemList').append($items);
+  })
+  .fail(function(err){
+    console.error(err);
+  });
+}
 
 function putRoomsInList() {
   $.get('/rooms')
@@ -47,6 +60,15 @@ function putRoomsInList() {
   });
 }
 
+function itemListElement(item){
+  var $item = $('#sampleItem').clone();
+  $item.removeAttr('id');
+  $item.find('.itemName').text(item.name);
+  $item.find('.itemValue').text(item.value);
+  $item.find('.itemDescription').text(item.description);
+  $item.find('.itemImage').attr('src', item.image);
+  return $item;
+}
 
 function roomListElement(room){
   var $li = $('<li>').addClass('list-group-item room');

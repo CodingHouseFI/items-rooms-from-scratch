@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  var room = new Room(req.body.room);
+  var room = new Room(req.body);
   room.save(function(err, savedRoom) {
     res.status(err ? 400 : 200).send(err || savedRoom);
   });

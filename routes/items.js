@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  var item = new Item(req.body.item);
+  var item = new Item(req.body);
   item.save(function(err, savedItem) {
     res.status(err ? 400 : 200).send(err || savedItem);
   });
